@@ -1,10 +1,14 @@
 class Oystercard
 
 attr_accessor :balance
-DEFAULT_BALANCE = 0
+MAX_BALANCE = 90
 
 def initialize
-  @balance = DEFAULT_BALANCE
+  @balance = 0
+end
+
+def top_up(value)
+  balance + value > MAX_BALANCE ? raise("balance already maximum_amount(#{Oystercard::MAX_BALANCE})") : @balance += value
 end
 
 end
