@@ -16,9 +16,17 @@ describe Oystercard do
     it 'raises error when topping-up balance past maximum' do
       maximum_amount = (Oystercard::MAX_BALANCE) # shows calling constants outside of class (will eq 90)
       card.top_up(maximum_amount)
-      expect { card.top_up(1) }.to raise_error "balance already maximum_amount(#{maximum_amount})"
+      expect { card.top_up(1) }.to raise_error "top up exceeds maximum balance (#{maximum_amount})"
     end
 
+  end
+
+  describe '#deduct' do
+    it 'deducts value from balance' do
+      card.top_up(Oystercard::MAX_BALANCE)
+      value = 50
+      expect { card.deduct(value) }.to change { card.balance }.by(-value)
+    end
   end
 
 end
